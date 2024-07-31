@@ -10,7 +10,6 @@ const Guitar = ({ guitar, addToCart }) => {
           <img
             className="img-fluid"
             src={`./img/${image}.jpg`}
-            // src="./img/guitarra_01.jpg"
             alt="imagen guitarra"
           />
         </div>
