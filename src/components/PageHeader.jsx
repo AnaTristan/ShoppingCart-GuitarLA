@@ -1,9 +1,13 @@
 import React from "react";
+import { useMemo } from "react";
 
 const PageHeader = ({ cart }) => {
-  const isEmpty = () => cart.length === 0;
-  const cartTotal = () =>
-    cart.reduce((total, item) => total + item.quantity * item.price, 0);
+  const isEmpty = useMemo(() => cart.length === 0, [cart]);
+  const cartTotal = useMemo(
+    () => cart.reduce((total, item) => total + item.quantity * item.price, 0),
+    [cart]
+  );
+
   return (
     <>
       <header className="py-5 header">
@@ -30,7 +34,7 @@ const PageHeader = ({ cart }) => {
                 />
 
                 <div id="carrito" className="bg-white p-3">
-                  {isEmpty() ? (
+                  {isEmpty ? (
                     <p className="text-center">El carrito esta vacio</p>
                   ) : (
                     <>
@@ -80,7 +84,7 @@ const PageHeader = ({ cart }) => {
 
                       <p className="text-end">
                         Total pagar:{" "}
-                        <span className="fw-bold">${cartTotal()}</span>
+                        <span className="fw-bold">${cartTotal}</span>
                       </p>
                       <button className="btn btn-dark w-100 mt-3 p-2">
                         Vaciar Carrito
