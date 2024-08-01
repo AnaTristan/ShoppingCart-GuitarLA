@@ -1,7 +1,7 @@
 import React from "react";
 import { useMemo } from "react";
 
-const PageHeader = ({ cart }) => {
+const PageHeader = ({ cart, removeFromCart }) => {
   const isEmpty = useMemo(() => cart.length === 0, [cart]);
   const cartTotal = useMemo(
     () => cart.reduce((total, item) => total + item.quantity * item.price, 0),
@@ -73,6 +73,7 @@ const PageHeader = ({ cart }) => {
                                 <button
                                   className="btn btn-danger"
                                   type="button"
+                                  onClick={() => removeFromCart(guitar.id)}
                                 >
                                   X
                                 </button>
