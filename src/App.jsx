@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PageHeader from "./components/PageHeader";
 import PageFooter from "./components/pageFooter";
 import Guitar from "./components/Guitar";
@@ -7,8 +7,12 @@ import { db } from "./data/db";
 import "./index.css";
 
 function App() {
+  const initialCart = () => {
+    const localStorageCart = localStorage.getItem("cart");
+    return localStorageCart ? JSON.parse(localStorageCart) : [];
+  };
   const [data, setData] = useState(db);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(initialCart);
 
   function addToCart(item) {
     const itemExists = cart.findIndex((guitar) => guitar.id === item.id);
@@ -60,6 +64,14 @@ function App() {
   function clearCart() {
     setCart([]);
   }
+
+  function saveLocalStorage() {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
+
+  useEffect(() => {
+    saveLocalStorage();
+  }, [cart]);
 
   return (
     <>
