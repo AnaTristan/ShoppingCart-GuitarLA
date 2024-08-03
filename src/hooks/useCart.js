@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { db } from "../data/db";
 
 export const useCart = () => {
@@ -9,6 +9,10 @@ export const useCart = () => {
   const [data] = useState(db);
   const [cart, setCart] = useState(initialCart);
   const MIN_ITEMS = 1;
+
+  useEffect(() => {
+    saveLocalStorage();
+  }, [cart]);
 
   function addToCart(item) {
     const itemExists = cart.findIndex((guitar) => guitar.id === item.id);
@@ -65,9 +69,11 @@ export const useCart = () => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }
 
-  useEffect(() => {
-    saveLocalStorage();
-  }, [cart]);
+  const isEmpty = useMemo(() => cart.length === 0, [cart]);
+  const cartTotal = useMemo(
+    () => cart.reduce((total, item) => total + item.quantity * item.price, 0),
+    [cart]
+  );
 
   return {
     data,
@@ -77,5 +83,7 @@ export const useCart = () => {
     decreaseQuantity,
     increaseQuantity,
     clearCart,
+    isEmpty,
+    cartTotal,
   };
 };
