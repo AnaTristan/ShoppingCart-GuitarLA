@@ -1,7 +1,12 @@
-import React from "react";
+import type { Guitar } from "../types";
 
-const Guitar = ({ guitar, addToCart }) => {
-  const { id, name, image, description, price } = guitar;
+type GuitarProps = {
+  guitar: Guitar;
+  addToCart: (item: Guitar) => void;
+};
+
+const Guitar = ({ guitar, addToCart }: GuitarProps) => {
+  const { name, image, description, price } = guitar;
 
   return (
     <>

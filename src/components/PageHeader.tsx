@@ -1,4 +1,14 @@
-import React from "react";
+import { CartItem, Guitar } from "../types";
+
+type HeaderProps = {
+  cart: CartItem[];
+  removeFromCart: (id: Guitar["id"]) => void;
+  increaseQuantity: (id: Guitar["id"]) => void;
+  decreaseQuantity: (id: Guitar["id"]) => void;
+  clearCart: () => void;
+  isEmpty: boolean;
+  cartTotal: number;
+};
 
 const PageHeader = ({
   cart,
@@ -8,7 +18,7 @@ const PageHeader = ({
   clearCart,
   isEmpty,
   cartTotal,
-}) => {
+}: HeaderProps) => {
   return (
     <>
       <header className="py-5 header">
@@ -50,7 +60,7 @@ const PageHeader = ({
                           </tr>
                         </thead>
                         <tbody>
-                          {cart.map((guitar, index) => (
+                          {cart.map((guitar: Guitar, index: number) => (
                             <tr key={index}>
                               <td>
                                 <img
