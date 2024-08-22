@@ -11,6 +11,7 @@ export const useCart = () => {
   const [data] = useState(db);
   const [cart, setCart] = useState(initialCart);
   const MIN_ITEMS = 1;
+  const MAX_ITEMS = 5;
 
   useEffect(() => {
     saveLocalStorage();
@@ -18,10 +19,12 @@ export const useCart = () => {
 
   function addToCart(item: Guitar) {
     const itemExists = cart.findIndex((guitar) => guitar.id === item.id);
-
-    if (itemExists < 0) {
-      item.quantity = 1;
-      setCart([...cart, item]);
+    if (itemExists >= 0) {
+      // existe en el carrito
+      if (cart[itemExists].quantity >= MAX_ITEMS) return;
+      const updatedCart = [...cart];
+      updatedCart[itemExists].quantity++;
+      setCart(updatedCart);
     } else {
       const newItem: CartItem = { ...item, quantity: 1 };
       setCart([...cart, newItem]);
