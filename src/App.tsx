@@ -8,16 +8,8 @@ import "./index.css";
 import { cartReducer, initialState } from "./reducers/cartReducer";
 
 function App() {
-  const {
-    cart,
-    addToCart,
-    removeFromCart,
-    decreaseQuantity,
-    increaseQuantity,
-    clearCart,
-    isEmpty,
-    cartTotal,
-  } = useCart();
+  const { removeFromCart, decreaseQuantity, increaseQuantity, clearCart } =
+    useCart();
 
   // le pasamos la funcion de cart reducer e initial state.
   // [state] =  va a ser nustro estado
@@ -27,13 +19,11 @@ function App() {
   return (
     <>
       <PageHeader
-        cart={cart}
-        removeFromCart={removeFromCart}
+        cart={state.cart}
         increaseQuantity={increaseQuantity}
         decreaseQuantity={decreaseQuantity}
         clearCart={clearCart}
-        isEmpty={isEmpty}
-        cartTotal={cartTotal}
+        dispatch={dispatch}
       />
 
       <main className="container-xl mt-5">

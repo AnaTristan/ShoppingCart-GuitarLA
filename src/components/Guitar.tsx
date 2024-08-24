@@ -4,7 +4,6 @@ import { CartActions } from "../reducers/cartReducer";
 
 type GuitarProps = {
   guitar: Guitar;
-  // addToCart: (item: Guitar) => void;
   dispatch: Dispatch<CartActions>;
 };
 

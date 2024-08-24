@@ -70,8 +70,15 @@ export const cartReducer = (
   }
 
   if (action.type === "remove-from-cart") {
+    // setCart((prevCart) => prevCart.filter((guitar) => guitar.id !== id));
+
+    let updatedCart = state.cart.filter(
+      (guitar) => guitar.id !== action.payload.id
+    );
+
     return {
       ...state,
+      cart: updatedCart,
     };
   }
 

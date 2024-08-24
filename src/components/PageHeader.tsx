@@ -1,24 +1,28 @@
+import { useMemo, Dispatch } from "react";
 import { CartItem, Guitar } from "../types";
+import { CartActions } from "../reducers/cartReducer";
 
 type HeaderProps = {
   cart: CartItem[];
-  removeFromCart: (id: Guitar["id"]) => void;
   increaseQuantity: (id: Guitar["id"]) => void;
   decreaseQuantity: (id: Guitar["id"]) => void;
   clearCart: () => void;
-  isEmpty: boolean;
-  cartTotal: number;
+  dispatch: Dispatch<CartActions>;
 };
 
 const PageHeader = ({
   cart,
-  removeFromCart,
   increaseQuantity,
   decreaseQuantity,
   clearCart,
-  isEmpty,
-  cartTotal,
+  dispatch,
 }: HeaderProps) => {
+  const isEmpty = useMemo(() => cart.length === 0, [cart]);
+  const cartTotal = useMemo(
+    () => cart.reduce((total, item) => total + item.quantity * item.price, 0),
+    [cart]
+  );
+
   return (
     <>
       <header className="py-5 header">
@@ -60,8 +64,8 @@ const PageHeader = ({
                           </tr>
                         </thead>
                         <tbody>
-                          {cart.map((guitar: Guitar, index: number) => (
-                            <tr key={index}>
+                          {cart.map((guitar) => (
+                            <tr key={guitar.id}>
                               <td>
                                 <img
                                   className="img-fluid"
@@ -92,7 +96,12 @@ const PageHeader = ({
                                 <button
                                   className="btn btn-danger"
                                   type="button"
-                                  onClick={() => removeFromCart(guitar.id)}
+                                  onClick={() =>
+                                    dispatch({
+                                      type: "remove-from-cart",
+                                      payload: { id: guitar.id },
+                                    })
+                                  }
                                 >
                                   X
                                 </button>
