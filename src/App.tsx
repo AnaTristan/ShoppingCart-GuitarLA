@@ -1,9 +1,11 @@
+import { useReducer } from "react";
 import PageHeader from "./components/PageHeader";
 import PageFooter from "./components/pageFooter";
 import Guitar from "./components/Guitar";
 import { useCart } from "./hooks/useCart";
 
 import "./index.css";
+import { cartReducer, initialState } from "./reducers/cartReducer";
 
 function App() {
   const {
@@ -17,6 +19,11 @@ function App() {
     isEmpty,
     cartTotal,
   } = useCart();
+
+  // le pasamos la funcion de cart reducer e initial state.
+  // [state] =  va a ser nustro estado
+  // [dispatch] =  va a ser
+  const [state, dispatch] = useReducer(cartReducer, initialState);
 
   return (
     <>
