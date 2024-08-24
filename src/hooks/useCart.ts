@@ -10,6 +10,7 @@ export const useCart = () => {
 
   const [data] = useState(db);
   const [cart, setCart] = useState(initialCart);
+
   const MIN_ITEMS = 1;
   const MAX_ITEMS = 5;
 
@@ -17,25 +18,25 @@ export const useCart = () => {
     saveLocalStorage();
   }, [cart]);
 
-    function addToCart(item: Guitar) {
-      const itemExists = cart.findIndex((guitar) => guitar.id === item.id);
-      if (itemExists >= 0) {
+  function addToCart(item: Guitar) {
+    const itemExists = cart.findIndex((guitar) => guitar.id === item.id);
+    if (itemExists >= 0) {
       // existe en el carrito
       if (cart[itemExists].quantity >= MAX_ITEMS) return;
-        const updatedCart = [...cart];
-        updatedCart[itemExists].quantity++;
-        setCart(updatedCart);
-      } else {
-        const newItem: CartItem = { ...item, quantity: 1 };
-        setCart([...cart, newItem]);
-      }
+      const updatedCart = [...cart];
+      updatedCart[itemExists].quantity++;
+      setCart(updatedCart);
+    } else {
+      const newItem: CartItem = { ...item, quantity: 1 };
+      setCart([...cart, newItem]);
+    }
   }
 
-  function removeFromCart(id : Guitar['id']) {
+  function removeFromCart(id: Guitar["id"]) {
     setCart((prevCart) => prevCart.filter((guitar) => guitar.id !== id));
   }
 
-  function increaseQuantity(id : Guitar['id']) {
+  function increaseQuantity(id: Guitar["id"]) {
     const updateCart = cart.map((item) => {
       if (item.id === id) {
         return {
@@ -50,7 +51,7 @@ export const useCart = () => {
     setCart(updateCart);
   }
 
-  function decreaseQuantity(id : Guitar['id']) {
+  function decreaseQuantity(id: Guitar["id"]) {
     const updateCart = cart.map((item) => {
       if (item.id === id && item.quantity > MIN_ITEMS) {
         return {
