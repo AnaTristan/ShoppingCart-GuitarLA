@@ -20,11 +20,18 @@ export type CartState = {
   cart: CartItem[];
 };
 
+// en caso de que exista algo en LS, se guarda lo del LS, de lo contrario []
+
+const initialCart = (): CartItem[] => {
+  const localStorageCart = localStorage.getItem("cart");
+  return localStorageCart ? JSON.parse(localStorageCart) : [];
+};
+
 // se define el estado del carrito inicial
 
 export const initialState: CartState = {
   data: db,
-  cart: [],
+  cart: initialCart(),
 };
 
 // reducer

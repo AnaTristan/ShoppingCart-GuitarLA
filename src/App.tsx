@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 import PageHeader from "./components/PageHeader";
 import PageFooter from "./components/pageFooter";
 import Guitar from "./components/Guitar";
@@ -10,6 +10,14 @@ function App() {
   // [state] =  va a ser nustro estado
   // [dispatch] =  va a ser
   const [state, dispatch] = useReducer(cartReducer, initialState);
+
+  useEffect(() => {
+    saveLocalStorage();
+  }, [state.cart]);
+
+  function saveLocalStorage() {
+    localStorage.setItem("cart", JSON.stringify(state.cart));
+  }
 
   return (
     <>
