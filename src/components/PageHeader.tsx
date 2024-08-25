@@ -4,16 +4,13 @@ import { CartActions } from "../reducers/cartReducer";
 
 type HeaderProps = {
   cart: CartItem[];
-  increaseQuantity: (id: Guitar["id"]) => void;
-  decreaseQuantity: (id: Guitar["id"]) => void;
   clearCart: () => void;
   dispatch: Dispatch<CartActions>;
 };
 
 const PageHeader = ({
   cart,
-  increaseQuantity,
-  decreaseQuantity,
+
   clearCart,
   dispatch,
 }: HeaderProps) => {
@@ -79,7 +76,12 @@ const PageHeader = ({
                                 <button
                                   type="button"
                                   className="btn btn-dark"
-                                  onClick={() => decreaseQuantity(guitar.id)}
+                                  onClick={() =>
+                                    dispatch({
+                                      type: "decrease-quantity",
+                                      payload: { id: guitar.id },
+                                    })
+                                  }
                                 >
                                   -
                                 </button>
@@ -87,7 +89,12 @@ const PageHeader = ({
                                 <button
                                   type="button"
                                   className="btn btn-dark"
-                                  onClick={() => increaseQuantity(guitar.id)}
+                                  onClick={() =>
+                                    dispatch({
+                                      type: "increase-quantity",
+                                      payload: { id: guitar.id },
+                                    })
+                                  }
                                 >
                                   +
                                 </button>
