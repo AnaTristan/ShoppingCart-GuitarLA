@@ -60,8 +60,8 @@ const PageHeader = ({
                           </tr>
                         </thead>
                         <tbody>
-                          {cart.map((guitar: Guitar, index: number) => (
-                            <tr key={index}>
+                          {cart.map((guitar) => (
+                            <tr key={guitar.id}>
                               <td>
                                 <img
                                   className="img-fluid"
