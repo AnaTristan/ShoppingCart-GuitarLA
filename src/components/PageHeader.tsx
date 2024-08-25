@@ -1,19 +1,13 @@
 import { useMemo, Dispatch } from "react";
-import { CartItem, Guitar } from "../types";
+import { CartItem } from "../types";
 import { CartActions } from "../reducers/cartReducer";
 
 type HeaderProps = {
   cart: CartItem[];
-  clearCart: () => void;
   dispatch: Dispatch<CartActions>;
 };
 
-const PageHeader = ({
-  cart,
-
-  clearCart,
-  dispatch,
-}: HeaderProps) => {
+const PageHeader = ({ cart, dispatch }: HeaderProps) => {
   const isEmpty = useMemo(() => cart.length === 0, [cart]);
   const cartTotal = useMemo(
     () => cart.reduce((total, item) => total + item.quantity * item.price, 0),
@@ -124,7 +118,7 @@ const PageHeader = ({
                       </p>
                       <button
                         className="btn btn-dark w-100 mt-3 p-2"
-                        onClick={() => clearCart()}
+                        onClick={() => dispatch({ type: "clear-cart" })}
                       >
                         Vaciar Carrito
                       </button>

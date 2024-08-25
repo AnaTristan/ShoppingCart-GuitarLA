@@ -2,14 +2,10 @@ import { useReducer } from "react";
 import PageHeader from "./components/PageHeader";
 import PageFooter from "./components/pageFooter";
 import Guitar from "./components/Guitar";
-import { useCart } from "./hooks/useCart";
-
-import "./index.css";
 import { cartReducer, initialState } from "./reducers/cartReducer";
+import "./index.css";
 
 function App() {
-  const { increaseQuantity, clearCart } = useCart();
-
   // le pasamos la funcion de cart reducer e initial state.
   // [state] =  va a ser nustro estado
   // [dispatch] =  va a ser
@@ -17,7 +13,7 @@ function App() {
 
   return (
     <>
-      <PageHeader cart={state.cart}     clearCart={clearCart} dispatch={dispatch} />
+      <PageHeader cart={state.cart} dispatch={dispatch} />
 
       <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
